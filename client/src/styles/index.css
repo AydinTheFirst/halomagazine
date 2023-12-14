@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bs-cyan: #29c7d7;
+  --bs-orange: #f98d38;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+label {
+  user-select: none;
+}
+
+.colored {
+  background: linear-gradient(to right, var(--bs-cyan), var(--bs-orange));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.box {
+  position: relative;
+  display: flex;
+  margin: auto;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.box span {
+  position: absolute;
+  inset: 5px;
+}
+
+.box img {
+  z-index: 1;
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  background-image: conic-gradient(
+    transparent,
+    transparent,
+    transparent,
+    #c8efd0
+  );
+  animation: animate 4s linear infinite;
+  animation-delay: -2s;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  background-image: conic-gradient(
+    transparent,
+    transparent,
+    transparent,
+    #c7b36e
+  );
+  animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes snowflakes-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(80px);
+  }
+}
