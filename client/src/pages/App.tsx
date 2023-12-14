@@ -77,7 +77,7 @@ const Magazines = () => {
       <div>
         <span className="flex text-3xl pb-3 border-b">{c.title}</span>
         <div className="flex mt-5 gap-5 overflow-auto">
-          {c.magazines.map((m: any, i: number) => (
+          {c.magazines.reverse().map((m: any, i: number) => (
             <CardBox key={i} data={m} />
           ))}
         </div>
