@@ -1,10 +1,18 @@
 import { useEffect } from "react";
 
-import snowflake1 from "../assets/snowflake-1.svg";
-import snowflake2 from "../assets/snowflake-2.svg";
-import snowflake3 from "../assets/snowflake-3.svg";
-import snowflake4 from "../assets/snowflake-4.svg";
-import snowflake5 from "../assets/snowflake-5.svg";
+import snowflake from "../assets/snowflakes/snowflake-svgrepo-com.svg";
+import snowflake1 from "../assets/snowflakes/snowflake-svgrepo-com (1).svg";
+import snowflake2 from "../assets/snowflakes/snowflake-svgrepo-com (2).svg";
+import snowflake3 from "../assets/snowflakes/snowflake-svgrepo-com (3).svg";
+import snowflake4 from "../assets/snowflakes/snowflake-svgrepo-com (4).svg";
+import snowflake5 from "../assets/snowflakes/snowflake-svgrepo-com (5).svg";
+import snowflake6 from "../assets/snowflakes/snowflake-svgrepo-com (6).svg";
+import snowflake7 from "../assets/snowflakes/snowflake-svgrepo-com (7).svg";
+import snowflake8 from "../assets/snowflakes/snowflake-svgrepo-com (8).svg";
+import snowflake9 from "../assets/snowflakes/snowflake-svgrepo-com (9).svg";
+import snowflake10 from "../assets/snowflakes/snowflake-svgrepo-com (10).svg";
+import snowflake11 from "../assets/snowflakes/snowflake-svgrepo-com (11).svg";
+import snowflake12 from "../assets/snowflakes/snowflake-svgrepo-com (12).svg";
 
 class Flake {
   x: number;
@@ -17,8 +25,9 @@ class Flake {
     this.y = y;
     this.speed = speed;
     this.size = size;
+
     this.image = document.querySelectorAll(".snowflake")[
-      Math.floor(Math.random() * 5)
+      Math.floor(Math.random() * 13)
     ] as HTMLImageElement;
   }
 
@@ -83,11 +92,19 @@ export const Snow = () => {
       ></canvas>
 
       <div className="hidden">
+        <img src={snowflake} alt="" className="snowflake" />
         <img src={snowflake1} alt="" className="snowflake" />
         <img src={snowflake2} alt="" className="snowflake" />
         <img src={snowflake3} alt="" className="snowflake" />
         <img src={snowflake4} alt="" className="snowflake" />
         <img src={snowflake5} alt="" className="snowflake" />
+        <img src={snowflake6} alt="" className="snowflake" />
+        <img src={snowflake7} alt="" className="snowflake" />
+        <img src={snowflake8} alt="" className="snowflake" />
+        <img src={snowflake9} alt="" className="snowflake" />
+        <img src={snowflake10} alt="" className="snowflake" />
+        <img src={snowflake11} alt="" className="snowflake" />
+        <img src={snowflake12} alt="" className="snowflake" />
       </div>
     </>
   );
