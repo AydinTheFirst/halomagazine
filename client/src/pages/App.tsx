@@ -22,6 +22,7 @@ export const App = () => {
             <div className="flex justify-center items-center p-3">
               <div>
                 <span className="text-6xl font-bold">HALO</span>
+
                 <p className="text-xl font-bold">
                   Aylık Fikir, Sanat ve Edebiyat Dergisi
                 </p>

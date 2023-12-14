@@ -1,16 +1,25 @@
 import { useEffect } from "react";
-import snowflake from "../assets/snowflake.svg";
+
+import snowflake1 from "../assets/snowflake-1.svg";
+import snowflake2 from "../assets/snowflake-2.svg";
+import snowflake3 from "../assets/snowflake-3.svg";
+import snowflake4 from "../assets/snowflake-4.svg";
+import snowflake5 from "../assets/snowflake-5.svg";
 
 class Flake {
   x: number;
   y: number;
   speed: number;
   size: number;
+  image: HTMLImageElement;
   constructor(x: number, y: number, speed: number, size: number) {
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.size = size;
+    this.image = document.querySelectorAll(".snowflake")[
+      Math.floor(Math.random() * 5)
+    ] as HTMLImageElement;
   }
 
   update = () => {
@@ -20,13 +29,7 @@ class Flake {
 
   draw = (ctx: CanvasRenderingContext2D) => {
     // draw snowflake
-    ctx.drawImage(
-      document.getElementById("snowflake") as HTMLImageElement,
-      this.x,
-      this.y,
-      this.size,
-      this.size
-    );
+    ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
   };
 }
 
@@ -79,7 +82,13 @@ export const Snow = () => {
         className="snow absolute top-0 left-0 h-[100vh] w-full"
       ></canvas>
 
-      <img id="snowflake" src={snowflake} alt="" className="invisible" />
+      <div className="hidden">
+        <img src={snowflake1} alt="" className="snowflake" />
+        <img src={snowflake2} alt="" className="snowflake" />
+        <img src={snowflake3} alt="" className="snowflake" />
+        <img src={snowflake4} alt="" className="snowflake" />
+        <img src={snowflake5} alt="" className="snowflake" />
+      </div>
     </>
   );
 };

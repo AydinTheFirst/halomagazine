@@ -1,5 +1,5 @@
 import { DarkThemeToggle, Navbar } from "flowbite-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search } from "./Search";
 
 export const NavbarComponent = () => {
@@ -42,8 +42,9 @@ export const NavbarComponent = () => {
       className="py-5 px-10 border-b fixed w-full top-0 left-0 p-3"
       style={{ zIndex: 100 }}
     >
-      <Navbar.Brand href="/">
+      <Navbar.Brand href="/" className="relative">
         <img src={logo} alt="logo" width={100} />
+        <img src="/hat.png" style={style} className="absolute" alt="" />
       </Navbar.Brand>
 
       <div className="flex md:order-2 gap-1 ms-1">
@@ -69,4 +70,12 @@ export const NavbarComponent = () => {
       </Navbar.Collapse>
     </Navbar>
   );
+};
+
+const style: React.CSSProperties = {
+  width: "100px",
+  height: "100px",
+  top: "-45px",
+  right: "-50px",
+  transform: "rotate(30deg)",
 };
