@@ -52,7 +52,7 @@ export const Snow = () => {
   }, []);
 
   // adjust according to window size
-  const maxFlakes = Math.round(window.innerWidth / 85);
+  const maxFlakes = Math.round(window.innerWidth / 30);
 
   const flakes: any[] = [];
 
