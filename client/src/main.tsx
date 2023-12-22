@@ -9,8 +9,9 @@ import { Login } from "./pages/Login";
 import { Hakkimizda } from "./pages/Hakkimizda";
 import { Iletisim } from "./pages/Iletisim";
 import { NotFound } from "./pages/NotFound";
+import { Dashboard } from "./pages/Dashboard";
 
-document.body.classList.add("bg-slate-100", "dark:bg-gray-900");
+document.body.classList.add("bg-slate-100", "dark:bg-slate-900");
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
@@ -22,6 +23,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/iletisim" element={<Iletisim />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

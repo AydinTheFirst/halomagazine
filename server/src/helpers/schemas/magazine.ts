@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-export interface IMagazine {
+interface ISchema {
   id: string;
   catId: string;
   title: string;
@@ -10,9 +10,9 @@ export interface IMagazine {
   timestamp: string;
 }
 
-export const magazieModel = mongoose.model<IMagazine>(
+const model = mongoose.model<ISchema>(
   "magazine",
-  new Schema<IMagazine>({
+  new Schema<ISchema>({
     id: { type: String, required: true },
     catId: { type: String, required: true },
     title: { type: String, required: true },
@@ -22,3 +22,6 @@ export const magazieModel = mongoose.model<IMagazine>(
     timestamp: { type: String, required: true },
   })
 );
+
+export const magazieModel = model;
+export type IMagazine = ISchema;

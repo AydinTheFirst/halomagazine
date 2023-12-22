@@ -1,12 +1,16 @@
 import passport from "passport";
 import { Strategy as Local } from "passport-local";
 import { Strategy as Bearer } from "passport-http-bearer";
-import { userModel } from "./schemas/user.js";
+
+const user = {
+  username: process.env.ADMIN_USERNAME,
+  password: process.env.ADMIN_PASSWORD,
+  token: process.env.ADMIN_TOKEN,
+};
 
 passport.use(
   new Local(async (username: string, password: string, done: Function) => {
-    const user = await userModel.findOne({ username }).lean();
-    const ok = user && user.password === password;
+    const ok = user.username === username && user.password === password;
 
     if (!ok) {
       return done(null, false, "Invalid username or password!");
@@ -19,9 +23,9 @@ passport.use(
 
 passport.use(
   new Bearer(async (token: string, done: Function) => {
-    const user = await userModel.findOne({ token });
-    if (!user) {
-      return done(null, false);
+    const ok = user.token === token;
+    if (!ok) {
+      return done(null, false, "Invalid token!");
     }
     return done(null, user, { scope: "all" });
   })

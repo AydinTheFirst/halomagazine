@@ -75,7 +75,7 @@ export const NavbarComponent = () => {
 const style: React.CSSProperties = {
   width: "100px",
   height: "100px",
-  top: "-45px",
-  right: "-50px",
+  top: "-43px",
+  right: "-42px",
   transform: "rotate(30deg)",
 };

@@ -1,19 +1,22 @@
 import mongoose, { Schema } from "mongoose";
 import { IMagazine } from "./magazine";
 
-export interface ICategory {
+interface ISchema {
   id: string;
   title: string;
   description: string;
   magazines: IMagazine[];
 }
 
-export const categoryModel = mongoose.model<ICategory>(
+const model = mongoose.model<ISchema>(
   "category",
-  new Schema<ICategory>({
+  new Schema<ISchema>({
     id: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: false },
     magazines: { type: [], required: true },
   })
 );
+
+export const categoryModel = model;
+export type ICategory = ISchema;

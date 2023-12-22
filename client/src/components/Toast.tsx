@@ -2,7 +2,7 @@ import { Toast } from "flowbite-react";
 
 export const ToastBox = () => {
   return (
-    <Toast id="toast" className="fixed end-0 bottom-0 m-3 z-10 invisible">
+    <Toast id="toast" className="fixed end-0 bottom-0 m-3 z-[100] invisible">
       <div className="flex items-start w-100 relatives">
         <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-500 dark:bg-cyan-900 dark:text-cyan-300">
           <img src="/logo.png" alt="logo" className="h-5 w-5" />

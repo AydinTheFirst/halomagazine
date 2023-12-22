@@ -4,11 +4,12 @@ export const Routes = {
     Login: "/auth/login",
     Register: "/auth/register",
   },
-  Settings: {
-    VerifyEmail: "/settings/verify",
-    ResetPassword: "/settings/resetPassword",
-    UpdateProfile: "/settings/updateProfile",
+  Magazines: (id?: string) => {
+    if (id) return `/magazines/${id}`;
+    return "/magazines";
   },
-  Dests: "/dests",
-  DB: "/databases",
+  Categories: (id?: string) => {
+    if (id) return `/categories/${id}`;
+    return "/categories";
+  },
 };

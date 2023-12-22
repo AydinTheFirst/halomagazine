@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 import { Routes } from "./Routes";
@@ -45,6 +44,7 @@ export class REST {
         method,
         data,
       });
+      console.log(res);
 
       return {
         ok: res.status >= 200 && res.status < 300,
@@ -109,7 +109,7 @@ export class REST {
       window.location.href = "/login";
     }
 
-    console.error(res);
+    console.log(res);
     return toast({
       title: res.errorMessage,
       message: res.error.message || String(res.error),
