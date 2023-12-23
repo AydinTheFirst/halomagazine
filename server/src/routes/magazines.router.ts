@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 const router = express.Router();
 export const MagazinesRouter = router;
 
-const bucketName = "fristroop";
+const bucketName = "haloidergisi";
 
 router.get("/", async (req, res) => {
   const model = await magazieModel.find();
@@ -41,8 +41,7 @@ router.post("/", isLoggedIn, async (req, res) => {
   for (const file of files) {
     await _uploadFile(file);
 
-    model[file.fieldname] =
-      bucketName + "/" + convertField(file.fieldname) + "/" + file.filename;
+    model[file.fieldname] = convertField(file.fieldname) + "/" + file.filename;
   }
 
   await model.save();
@@ -66,7 +65,7 @@ router.put("/:id", isLoggedIn, async (req, res) => {
       _deleteFile(model[file.fieldname]);
 
       model[file.fieldname] =
-        bucketName + "/" + convertField(file.fieldname) + "/" + file.filename;
+        convertField(file.fieldname) + "/" + file.filename;
     }
   }
 
@@ -82,7 +81,11 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id;
 
   try {
-    await magazieModel.findOneAndDelete({ id });
+    const mag = await magazieModel.findOne({ id });
+    if (!mag) return APIError(res, "Magazine not found!");
+
+    await _deleteFile(mag.thumbnail);
+    await _deleteFile(mag.file);
 
     return res.send({ message: "Magazine deleted!" });
   } catch (error) {
@@ -106,7 +109,7 @@ const _uploadFile = async (file: Express.Multer.File) => {
 
   const result = await client.putObject({
     Bucket: bucketName,
-    Key: convertField(file.filename) + "/" + file.filename,
+    Key: convertField(file.fieldname) + "/" + file.filename,
     Body: fs.readFileSync(file.path),
     ContentType: file.mimetype,
   });
