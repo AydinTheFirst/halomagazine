@@ -49,6 +49,8 @@ export const Snow = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     draw(ctx);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // adjust according to window size

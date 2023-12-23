@@ -18,7 +18,6 @@ import { Theme } from "../components/Theme";
 
 import { ICategory } from "../../../server/src/helpers/schemas/category";
 import { IMagazine } from "../../../server/src/helpers/schemas/magazine";
-import { toast } from "../utils/toast";
 
 export const Dashboard = () => {
   const [data, setData] = useState<ICategory[] | null>(null);

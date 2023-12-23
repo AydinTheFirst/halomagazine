@@ -9,7 +9,7 @@
     "start": "tsx src/index.ts",
     "build": "echo \"Build is not required!\"",
     "dev": "tsx watch src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0"
   },
   "keywords": [],
   "author": "",
