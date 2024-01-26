@@ -86,7 +86,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 
     await _deleteFile(mag.thumbnail);
     await _deleteFile(mag.file);
-
+    await mag.deleteOne();
     return res.send({ message: "Magazine deleted!" });
   } catch (error) {
     return APIError(res, String(error));
