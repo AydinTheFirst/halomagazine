@@ -1,10 +1,10 @@
 import express from "express";
-import { magazieModel } from "../helpers/schemas/magazine";
-import { isLoggedIn } from "../helpers/passport";
-import { APIError } from "../helpers/utils";
 import { S3 } from "@aws-sdk/client-s3";
 import fs from "fs";
 import { v4 } from "uuid";
+import { magazieModel } from "@/helpers/schemas/magazine";
+import { isLoggedIn } from "@/helpers/passport";
+import { APIError } from "@/helpers/utils";
 
 // Routers
 const router = express.Router();
@@ -41,7 +41,8 @@ router.post("/", isLoggedIn, async (req, res) => {
   for (const file of files) {
     await _uploadFile(file);
 
-    model[file.fieldname] = convertField(file.fieldname) + "/" + file.filename;
+    (model as any)[file.fieldname] =
+      convertField(file.fieldname) + "/" + file.filename;
   }
 
   await model.save();
@@ -62,9 +63,9 @@ router.put("/:id", isLoggedIn, async (req, res) => {
   if (files.length > 0) {
     for (const file of files) {
       await _uploadFile(file);
-      _deleteFile(model[file.fieldname]);
+      _deleteFile((model as any)[file.fieldname]);
 
-      model[file.fieldname] =
+      (model as any)[file.fieldname] =
         convertField(file.fieldname) + "/" + file.filename;
     }
   }

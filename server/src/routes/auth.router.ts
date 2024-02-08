@@ -1,7 +1,7 @@
+import { isLoggedIn } from "@/helpers/passport";
+import { APIError } from "@/helpers/utils";
 import express from "express";
 import passport from "passport";
-import { isLoggedIn } from "../helpers/passport.js";
-import { APIError } from "../helpers/utils.js";
 
 const router = express.Router();
 export const AuthRouter = router;

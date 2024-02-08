@@ -1,9 +1,9 @@
 import express from "express";
 
 // Routers
-import { MagazinesRouter } from "./magazines.router.js";
-import { CategoriesRouter } from "./category.router.js";
-import { AuthRouter } from "./auth.router.js";
+import { AuthRouter } from "./auth.router";
+import { MagazinesRouter } from "./magazines.router";
+import { CategoriesRouter } from "./category.router";
 
 const app = express.Router();
 export const router = app;

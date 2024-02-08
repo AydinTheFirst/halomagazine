@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm:watch-*\" \"npm run dev:client\" \"npm run dev:server\"",
+    "dev": "concurrently -r \"npm:watch-*\" \"npm run dev:client\" \"npm run dev:server\"",
     "install": "cd client && pnpm install && cd ../server && pnpm install",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",

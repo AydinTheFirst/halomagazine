@@ -1,9 +1,9 @@
+import { isLoggedIn } from "@/helpers/passport";
+import { categoryModel } from "@/helpers/schemas/category";
+import { magazieModel } from "@/helpers/schemas/magazine";
+import { APIError } from "@/helpers/utils";
 import express from "express";
-import { categoryModel } from "../helpers/schemas/category";
-import { magazieModel } from "../helpers/schemas/magazine";
 import { v4 } from "uuid";
-import { isLoggedIn } from "../helpers/passport";
-import { APIError } from "../helpers/utils";
 
 // Routers
 const router = express.Router();

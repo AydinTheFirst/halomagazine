@@ -2,11 +2,12 @@ import { Button, Card } from "flowbite-react";
 import { Footer } from "../components/Footer";
 import { NavbarComponent } from "../components/Navbar";
 import { useEffect, useState } from "react";
-import { Snow } from "./Snow";
 import { Loader } from "../components/Loader";
 import { rest } from "../utils/REST";
 import { CDN } from "../config";
 import { InspectMagazine } from "../components/InspectMagazine";
+
+import { Snow } from "./Snow";
 
 export const App = () => {
   useEffect(() => {}, []);
@@ -14,6 +15,7 @@ export const App = () => {
   return (
     <>
       <NavbarComponent />
+
       <Snow />
 
       <main className="container mx-auto mt-5 dark:text-white p-5">

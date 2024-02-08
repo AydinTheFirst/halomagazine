@@ -44,7 +44,6 @@ export const NavbarComponent = () => {
     >
       <Navbar.Brand href="/" className="relative">
         <img src={logo} alt="logo" width={100} />
-        <img src="/hat.png" style={style} className="absolute" alt="" />
       </Navbar.Brand>
 
       <div className="flex md:order-2 gap-1 ms-1">
@@ -70,12 +69,4 @@ export const NavbarComponent = () => {
       </Navbar.Collapse>
     </Navbar>
   );
-};
-
-const style: React.CSSProperties = {
-  width: "100px",
-  height: "100px",
-  top: "-43px",
-  right: "-42px",
-  transform: "rotate(30deg)",
 };
