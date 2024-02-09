@@ -2,8 +2,13 @@ import { DarkThemeToggle, Navbar } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { Search } from "./Search";
 
+const defaults = {
+  dark: "/valentine-dark.png",
+  light: "/valentine-light.png",
+};
+
 export const NavbarComponent = () => {
-  const [logo, setLogo] = useState<string>("/dark.png");
+  const [logo, setLogo] = useState<string>(defaults.dark);
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
   const setPadding = () => {
@@ -15,11 +20,11 @@ export const NavbarComponent = () => {
     setPadding();
     const html = document.querySelector("html");
     setIsDarkTheme(html?.classList.contains("dark") ?? false);
-    setLogo(html?.classList.contains("dark") ? "/dark.png" : "/light.png");
+    setLogo(html?.classList.contains("dark") ? defaults.dark : defaults.light);
 
     const handleThemeToggle = () => {
       setIsDarkTheme((prevTheme) => !prevTheme);
-      const newLogo = !isDarkTheme ? "/dark.png" : "/light.png";
+      const newLogo = !isDarkTheme ? defaults.dark : defaults.light;
       setLogo(newLogo);
     };
 
@@ -31,6 +36,8 @@ export const NavbarComponent = () => {
       document
         .getElementById("btn")
         ?.removeEventListener("click", handleThemeToggle);
+
+      document.body.style.paddingTop = "0px";
     };
   }, [isDarkTheme]);
 
