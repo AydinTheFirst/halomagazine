@@ -16,8 +16,6 @@ export const App = () => {
     <>
       <NavbarComponent />
 
-      <Snow />
-
       <main className="container mx-auto mt-5 dark:text-white p-5">
         <section className="h-[100vh]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
