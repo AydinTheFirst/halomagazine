@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Search } from "./Search";
 
 const defaults = {
-  dark: "/valentine-dark.png",
-  light: "/valentine-light.png",
+  dark: "/dark.png",
+  light: "/light.png",
 };
 
 export const NavbarComponent = () => {
