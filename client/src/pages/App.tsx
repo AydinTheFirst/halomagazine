@@ -7,8 +7,6 @@ import { rest } from "../utils/REST";
 import { CDN } from "../config";
 import { InspectMagazine } from "../components/InspectMagazine";
 
-import { Snow } from "./Snow";
-
 export const App = () => {
   useEffect(() => {}, []);
 
