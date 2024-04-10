@@ -12,6 +12,10 @@ const squads = [
     id: "0de7fd13-3f31-4e12-800a-775e77b079f6",
     name: "Tasarım Ekibi",
   },
+  {
+    id: "f1df1cd0-91f6-4abc-81d8-ae233fd97548",
+    name: "Website Yönetimi",
+  },
 ];
 
 class SquadController {
