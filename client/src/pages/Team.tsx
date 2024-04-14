@@ -3,7 +3,19 @@ import { useHTTP } from "@/hooks";
 import { HomeLayout } from "@/layouts/Home/Layout";
 import { getGravatar } from "@/lib";
 import { IUser } from "@/types";
-import { Divider, User, Link } from "@nextui-org/react";
+import {
+  Divider,
+  User,
+  Card,
+  CardBody,
+  CardHeader,
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 const instagram = "https://www.instagram.com/haloidergisi";
@@ -56,7 +68,7 @@ const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
     <>
       <div>
         <h2 className="mb-3 text-center text-2xl">{title}</h2>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {users.reverse().map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
@@ -76,21 +88,58 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 const UserCard = ({ user }: { user: IUser }) => {
+  const [isOpen, setOpen] = useState(false);
+
+  if (!user.bio) user.bio = "Bu kişi hakkında bir şeyler yazılmamış.";
+
+  const bio =
+    user.bio?.length > 50 ? user.bio.substring(0, 50) + "..." : user.bio;
+
   return (
-    <Link
-      href={user.website || instagram}
-      target="_blank"
-      rel="noopener noreferrer"
-      color="foreground"
-    >
-      <User
-        className="roundelg bg-yellow-100 p-3"
-        name={user.displayName}
-        description={user.role}
-        avatarProps={{
-          src: getGravatar(user.email),
-        }}
-      />
-    </Link>
+    <>
+      <Card onPress={() => setOpen(true)} isPressable isHoverable>
+        <CardHeader>
+          <User
+            name={user.displayName}
+            description={user.role}
+            avatarProps={{
+              src: getGravatar(user.email),
+            }}
+          />
+        </CardHeader>
+        <Divider />
+        <CardBody>
+          <p>{bio}</p>
+        </CardBody>
+      </Card>
+
+      <Modal isOpen={isOpen} onOpenChange={setOpen}>
+        <ModalContent>
+          <ModalHeader>
+            <User
+              name={user.displayName}
+              description={user.role}
+              avatarProps={{
+                src: getGravatar(user.email),
+              }}
+            />
+          </ModalHeader>
+          <ModalBody>
+            <p>{user.bio}</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={() => window.open(instagram, "_blank")}
+              color="primary"
+            >
+              İnternet Sitesi
+            </Button>
+            <Button onClick={() => setOpen(false)} color="danger">
+              Kapat
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
