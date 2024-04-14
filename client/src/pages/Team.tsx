@@ -87,13 +87,13 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 const UserCard = ({ user }: { user: IUser }) => {
   const [isOpen, setOpen] = useState(false);
 
-  if (!user.bio) user.bio = "Bu kişi hakkında bir şeyler yazılmamış.";
+  if (!user.bio) user.bio = user.displayName;
 
   return (
     <>
       <div className="">
         <User
-          className="cursor-pointer bg-slate-100 p-3"
+          className="cursor-pointer bg-[#f8efd0] p-3"
           name={user.displayName}
           description={user.role}
           avatarProps={{
