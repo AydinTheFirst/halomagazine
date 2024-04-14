@@ -6,9 +6,6 @@ import { IUser } from "@/types";
 import {
   Divider,
   User,
-  Card,
-  CardBody,
-  CardHeader,
   Button,
   Modal,
   ModalBody,
@@ -68,7 +65,7 @@ const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
     <>
       <div>
         <h2 className="mb-3 text-center text-2xl">{title}</h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-wrap justify-center gap-3">
           {users.reverse().map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
@@ -92,26 +89,19 @@ const UserCard = ({ user }: { user: IUser }) => {
 
   if (!user.bio) user.bio = "Bu kişi hakkında bir şeyler yazılmamış.";
 
-  const bio =
-    user.bio?.length > 50 ? user.bio.substring(0, 50) + "..." : user.bio;
-
   return (
     <>
-      <Card onPress={() => setOpen(true)} isPressable isHoverable>
-        <CardHeader>
-          <User
-            name={user.displayName}
-            description={user.role}
-            avatarProps={{
-              src: getGravatar(user.email),
-            }}
-          />
-        </CardHeader>
-        <Divider />
-        <CardBody>
-          <p>{bio}</p>
-        </CardBody>
-      </Card>
+      <div className="">
+        <User
+          className="cursor-pointer bg-slate-100 p-3"
+          name={user.displayName}
+          description={user.role}
+          avatarProps={{
+            src: getGravatar(user.email),
+          }}
+          onClick={() => setOpen(true)}
+        />
+      </div>
 
       <Modal isOpen={isOpen} onOpenChange={setOpen}>
         <ModalContent>
