@@ -62,11 +62,15 @@ export const Team = () => {
 };
 
 const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
+  const className =
+    title === "Yönetim"
+      ? "grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-3"
+      : "grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-3";
   return (
     <>
       <div>
         <h2 className="mb-3 text-center text-2xl">{title}</h2>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className={className}>
           {users.reverse().map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
@@ -80,7 +84,7 @@ const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <HomeLayout>
     <main className="container my-10">
-      <div className="mx-auto max-w-2xl">{children}</div>
+      <div className="mx-auto max-w-4xl">{children}</div>
     </main>
   </HomeLayout>
 );
@@ -92,7 +96,7 @@ const UserCard = ({ user }: { user: IUser }) => {
 
   return (
     <>
-      <div className="">
+      <div className="h-full w-full">
         <User
           className="flex h-full w-full cursor-pointer justify-start bg-[rgb(248,239,208)] p-3"
           name={user.displayName}
