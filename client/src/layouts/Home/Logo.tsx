@@ -1,4 +1,3 @@
-import { Image } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import React, { useMemo, useEffect } from "react";
 
@@ -18,5 +17,5 @@ export const Logo = () => {
     setLogo(theme === "dark" ? logos.dark : logos.light);
   }, [theme, logos]);
 
-  return <Image src={logo} alt="HALO" className="h-24" />; // Fix: Remove .dark from logo
+  return <img src={logo} alt="HALO" className="h-24" />; // Fix: Remove .dark from logo
 };
