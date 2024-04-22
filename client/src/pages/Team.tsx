@@ -49,7 +49,8 @@ export const Team = () => {
           </span>
         </h1>
         <p className="text-center text-lg text-neutral-500">
-          HALO ekibini oluşturan kişileri burada bulabilirsiniz.
+          HALO ekibini oluşturan kişileri burada bulabilirsiniz ve kartlara
+          tıklayarak daha fazla bilgi edinebilirsiniz!
         </p>
       </div>
       <Divider className="my-3" />
@@ -65,7 +66,7 @@ const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
     <>
       <div>
         <h2 className="mb-3 text-center text-2xl">{title}</h2>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {users.reverse().map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
@@ -91,9 +92,9 @@ const UserCard = ({ user }: { user: IUser }) => {
 
   return (
     <>
-      <div className="">
+      <div className="h-full w-full">
         <User
-          className="cursor-pointer bg-[#f8efd0] p-3"
+          className="flex h-full w-full cursor-pointer justify-start bg-[rgb(248,239,208)] p-3"
           name={user.displayName}
           description={user.role}
           avatarProps={{

@@ -56,6 +56,7 @@ export const NavbarComponent = () => {
 
   return (
     <Navbar
+      id="navbar"
       ref={navbarRef}
       className="p-6"
       style={{

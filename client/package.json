@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.10",
+    "@nextui-org/react": "^2.3.5",
     "@preact/signals-react": "^2.0.1",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",

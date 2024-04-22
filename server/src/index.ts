@@ -4,7 +4,6 @@ import "@/database";
 
 // Run server
 import "@/server";
-import { MagazieModel } from "./database/MagazineSchema";
 
 // Handle errors
 process.on("unhandledRejection", (reason) => {

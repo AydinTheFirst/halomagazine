@@ -13,6 +13,7 @@ import {
   Divider,
   Image,
 } from "@nextui-org/react";
+import { Key } from "react";
 
 export const App = () => {
   return (
@@ -28,7 +29,9 @@ const SearchMagazines = () => {
 
   const magazines = categories?.map((category) => category.magazines).flat();
 
-  console.log(magazines);
+  const handleSelect = (val: Key) => {
+    location.replace(`/magazines/${val}`);
+  };
 
   if (!magazines) return <Loader />;
 
@@ -39,12 +42,14 @@ const SearchMagazines = () => {
         label="Dergilerde Ara"
         className="max-w-xs"
         variant="underlined"
+        onSelectionChange={handleSelect}
       >
         {magazines.map((magazine) => (
           <AutocompleteItem
             key={magazine.id}
             value={magazine.title}
             nonce="Sonuç bulunamadı!"
+            textValue={magazine.title}
           >
             <div className="flex items-center gap-3">
               <Image
@@ -140,6 +145,7 @@ const Categories = () => {
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
               {category.magazines.reverse().map((magazine: any) => (
                 <Card
+                  id={magazine.id}
                   key={magazine.id}
                   isPressable
                   onPress={() => handlePress(magazine.id)}

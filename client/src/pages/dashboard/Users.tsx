@@ -27,6 +27,10 @@ export const Users = () => {
 
     data.isAdmin = data.isAdmin === "true";
 
+    console.log(data);
+
+    return;
+
     try {
       user
         ? await http.put(`/users/${userId}`, data)

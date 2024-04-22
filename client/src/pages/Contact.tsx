@@ -1,6 +1,9 @@
 import { HomeLayout } from "@/layouts/Home/Layout";
 import { Button, Divider, Input, Textarea } from "@nextui-org/react";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
+const instagram = "https://www.instagram.com/haloidergisi";
+const linkedin = "https://tr.linkedin.com/in/halo-edebiyat-dergisi-8a7bb8273";
 
 export const Contact = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,11 +36,16 @@ export const Contact = () => {
             <section className="flex flex-col gap-3">
               <span className="text-center text-2xl">Sosyal</span>
               <div className="flex justify-center gap-3">
-                <Button variant="light">
+                <Button
+                  as={Link}
+                  target="_blank"
+                  to={instagram}
+                  variant="light"
+                >
                   <FaInstagram size={24} />
                   Instagram
                 </Button>
-                <Button variant="light">
+                <Button as={Link} target="_blank" to={linkedin} variant="light">
                   <FaLinkedin size={24} />
                   LinkedIn
                 </Button>
