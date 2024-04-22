@@ -66,7 +66,7 @@ const UserGroup = ({ title, users }: { title: string; users: IUser[] }) => {
     <>
       <div>
         <h2 className="mb-3 text-center text-2xl">{title}</h2>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+        <div className="flex flex-wrap justify-center gap-2">
           {users.reverse().map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
@@ -92,7 +92,7 @@ const UserCard = ({ user }: { user: IUser }) => {
 
   return (
     <>
-      <div className="h-full w-full">
+      <div className="">
         <User
           className="flex h-full w-full cursor-pointer justify-start bg-[rgb(248,239,208)] p-3"
           name={user.displayName}
