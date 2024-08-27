@@ -1,23 +1,17 @@
-import express from "express";
-import { AuthRouter } from "./AuthRouter";
-import { CategoriesRouter } from "./CategoriesRouter";
-import { MagazinesRouter } from "./MagazinesRouter";
-import { UsersRouter } from "./UsersRouter";
-import { SquadsRouter } from "./SquadsRouter";
+import express, { Router } from "express";
+import { ApiRouter } from "./ApiRouter";
+import { APIError } from "@/lib/http";
+import fs from "fs";
 
-const app = express.Router();
-export const router = app;
+const router = Router();
+export { router };
 
-router.use("/auth", AuthRouter);
-router.use("/magazines", MagazinesRouter);
-router.use("/categories", CategoriesRouter);
-router.use("/users", UsersRouter);
-router.use("/squads", SquadsRouter);
+router.use("/api", ApiRouter);
 
-router.get("/", (req, res) => {
-  res.send({ message: "API is working!" });
-});
+const clientPath = "../client/dist";
+router.use(express.static(clientPath));
 
-router.all("*", (req, res) => {
-  res.status(404).send({ message: "404 Not Found" });
+router.use((_req, res) => {
+  if (!fs.existsSync(clientPath)) return APIError(res, "Client not found");
+  res.sendFile("index.html", { root: clientPath });
 });
