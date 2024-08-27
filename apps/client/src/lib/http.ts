@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "sonner";
 
-const API = import.meta.env.VITE_API || "http://localhost:3000";
+const API = import.meta.env.PROD ? "" : "http://localhost:3000";
 
 export const http = axios.create({
   baseURL: API,
