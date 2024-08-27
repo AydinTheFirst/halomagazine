@@ -42,7 +42,7 @@ const SearchMagazines = () => {
         label="Dergilerde Ara"
         className="max-w-xs"
         variant="underlined"
-        onSelectionChange={handleSelect}
+        onSelectionChange={handleSelect as any}
       >
         {magazines.map((magazine) => (
           <AutocompleteItem
