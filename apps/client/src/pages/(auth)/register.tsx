@@ -10,23 +10,21 @@ import {
 } from "@nextui-org/react";
 import { toast } from "sonner";
 
-export const Login = () => {
+export const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const data = Object.fromEntries(form.entries());
-    console.log(data);
 
     try {
-      const res = await http.post("/auth/login", data);
-      toast.success("Login success!", {
-        description: "Redirecting...",
+      await http.post("/users", data);
+
+      toast.success("Register success!", {
+        description: "Redirecting... Login with your new account.",
       });
 
-      localStorage.setItem("token", res.data.token);
-
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/login";
       }, 3000);
     } catch (error) {
       httpError(error);
@@ -38,17 +36,19 @@ export const Login = () => {
       <div className="container flex h-screen items-center justify-center">
         <Card className="col-md-6 col-lg-4">
           <CardHeader>
-            <h5 className="w-full text-center text-3xl font-bold">Login</h5>
+            <h5 className="w-full text-center text-3xl font-bold">Register</h5>
           </CardHeader>
           <CardBody>
             <form onSubmit={handleSubmit} className="row g-3">
-              <Input label="Email" type="email" name="username" />
+              <Input label="Name" type="text" name="displayName" />
+
+              <Input label="Email" type="email" name="email" />
 
               <Input label="Password" type="password" name="password" />
 
               <div>
-                <Button type="submit" color="success" fullWidth>
-                  Login
+                <Button type="submit" color="secondary" fullWidth>
+                  Register
                 </Button>
               </div>
             </form>
@@ -57,7 +57,7 @@ export const Login = () => {
 
             <div className="text-center">
               <Link href="/register" size="sm">
-                Already have an account? <span className="ms-1">Register</span>
+                Already have an account? <span className="ms-1">Login</span>
               </Link>
             </div>
           </CardBody>
@@ -66,3 +66,5 @@ export const Login = () => {
     </>
   );
 };
+
+export default Register;

@@ -1,28 +1,36 @@
 import "./AuthMethods";
-import passport from "passport";
-import { NextFunction, Request, Response } from "express";
-import { IUser } from "@/database/UserSchema";
-import { APIError } from "./http";
+import { Handler } from "express";
+import { IUser, UserModel } from "@/database/UserSchema";
 
-export const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate(
-    "bearer",
-    {
-      session: false,
-    },
-    (err: any, user: IUser) => {
-      if (err) return APIError(res, err);
+export const BearerAuth: Handler = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return next();
 
-      req.user = user;
-      req.isAdmin = user.isAdmin;
+  const user = await UserModel.findOne({
+    token,
+  });
 
-      next();
-    }
-  )(req, res, next);
+  if (!user) return next();
+
+  req.user = user;
+
+  next();
 };
 
-export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.isAdmin) {
+export const isLoggedIn: Handler = (req, res, next) => {
+  if (!req.user) {
+    return res
+      .status(401)
+      .send("You need to be logged in to access this route!");
+  }
+
+  next();
+};
+
+export const isAdmin: Handler = (req, res, next) => {
+  const user: IUser = req.user as IUser;
+
+  if (!user.isAdmin) {
     return res.status(403).send("You cannot access this route!");
   }
 

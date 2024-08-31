@@ -75,3 +75,5 @@ export const About = () => {
     </HomeLayout>
   );
 };
+
+export default About;

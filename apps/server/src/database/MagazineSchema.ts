@@ -9,6 +9,7 @@ interface ISchema {
   file: string;
   timestamp: string;
   catId: string;
+  status: "published" | "draft";
 }
 
 const model = mongoose.model<ISchema>(
@@ -22,6 +23,7 @@ const model = mongoose.model<ISchema>(
     thumbnail: { type: String, required: true },
     file: { type: String, required: true },
     timestamp: { type: String, required: true },
+    status: { type: String, required: false, default: "draft" },
   })
 );
 

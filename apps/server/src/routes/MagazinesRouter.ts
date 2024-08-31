@@ -1,8 +1,8 @@
-import express from "express";
+import express, { Router } from "express";
 import { isAdmin, isLoggedIn } from "@/lib/passport";
 import MagazinesController from "@/controllers/MagazinesController";
 
-const router = express.Router();
+const router: Router = express.Router();
 export { router as MagazinesRouter };
 
 router.get("/", MagazinesController.getAll);

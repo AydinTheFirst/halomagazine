@@ -138,3 +138,5 @@ const UserCard = ({ user }: { user: IUser }) => {
     </>
   );
 };
+
+export default Team;

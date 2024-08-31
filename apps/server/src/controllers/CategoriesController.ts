@@ -1,5 +1,6 @@
 import { CategoryModel } from "@/database/CategorySchema";
 import { MagazieModel } from "@/database/MagazineSchema";
+import { IUser } from "@/database/UserSchema";
 import { uuid } from "@/helpers/utils";
 import { APIError, ZodError } from "@/lib/http";
 import { Request, Response } from "express";
@@ -12,12 +13,20 @@ const NewCategorySchema = z.object({
 
 class CategoriesController {
   async getAll(req: Request, res: Response) {
+    const user: IUser = req.user as IUser;
+
     const models = await CategoryModel.find().lean();
 
     for (const model of models) {
-      model.magazines = await MagazieModel.find({
-        categoryId: model.id,
-      }).lean();
+      const magazines =
+        user && user.isAdmin
+          ? await MagazieModel.find({ categoryId: model.id })
+          : await MagazieModel.find({
+              categoryId: model.id,
+              status: "published",
+            });
+
+      model.magazines = magazines;
     }
 
     res.send(models);

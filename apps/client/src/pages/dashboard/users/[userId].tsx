@@ -5,7 +5,7 @@ import { http, httpError } from "@/lib";
 import { IUser } from "@/types";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { toast } from "sonner";
 
 export const Users = () => {
@@ -41,6 +41,11 @@ export const Users = () => {
 
   return (
     <Wrapper>
+      <div className="mb-3">
+        <Button as={Link} to={"/dashboard?tab=users"} variant="light">
+          <strong>← Back</strong>
+        </Button>
+      </div>
       <div>
         <h1 className="mb-3 text-center text-3xl font-bold">
           {user ? "Update" : "Create"} User
@@ -107,3 +112,5 @@ export const Users = () => {
     </Wrapper>
   );
 };
+
+export default Users;

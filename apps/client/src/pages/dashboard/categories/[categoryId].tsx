@@ -4,7 +4,7 @@ import { useHTTP } from "@/hooks";
 import { http, httpError } from "@/lib";
 import { ICategory } from "@/types";
 import { Button, Input, Textarea } from "@nextui-org/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { toast } from "sonner";
 
 export const Categories = () => {
@@ -32,6 +32,11 @@ export const Categories = () => {
 
   return (
     <Wrapper>
+      <div className="mb-3">
+        <Button as={Link} to={"/dashboard?tab=categories"} variant="light">
+          <strong>← Back</strong>
+        </Button>
+      </div>
       <div>
         <h1 className="mb-3 text-center text-3xl font-bold">
           {category ? "Update" : "Create"} Category
@@ -62,3 +67,5 @@ export const Categories = () => {
     </Wrapper>
   );
 };
+
+export default Categories;

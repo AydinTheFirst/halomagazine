@@ -22,7 +22,7 @@ export const GetMagazine = () => {
           </div>
           <br />
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div className="flex items-center">
+            <div className="order-1 flex items-center md:-order-1">
               <div>
                 <h1 className="mb-3 text-3xl font-bold">{magazine.title}</h1>
                 <p className="text-lg">{magazine.description}</p>
@@ -58,3 +58,5 @@ export const GetMagazine = () => {
     </>
   );
 };
+
+export default GetMagazine;

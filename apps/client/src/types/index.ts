@@ -21,6 +21,7 @@ export interface IMagazine {
   thumbnail: string;
   file: string;
   timestamp: string;
+  status: "published" | "draft";
 }
 
 export interface ICategory {

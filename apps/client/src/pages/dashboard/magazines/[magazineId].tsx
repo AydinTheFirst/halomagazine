@@ -31,7 +31,6 @@ export const Magazines = () => {
     const percent = Math.round(
       (progressEvent.loaded / progressEvent.total!) * 100,
     );
-    toast.info(`Uploading... ${percent}%`);
     setUploadProgress(percent);
   };
 
@@ -80,6 +79,11 @@ export const Magazines = () => {
 
   return (
     <Wrapper>
+      <div className="mb-3">
+        <Button as={Link} to={"/dashboard?tab=magazines"} variant="light">
+          <strong>← Back</strong>
+        </Button>
+      </div>
       <div>
         <h1 className="mb-3 text-center text-3xl font-bold">
           {magazine ? "Update" : "Create"} Magazine
@@ -105,6 +109,20 @@ export const Magazines = () => {
               {category.title}
             </SelectItem>
           ))}
+        </Select>
+
+        <Select
+          label="Status"
+          name="status"
+          defaultSelectedKeys={[magazine?.status || "draft"]}
+          className="col-md-6"
+        >
+          <SelectItem key={"draft"} value="draft">
+            Draft
+          </SelectItem>
+          <SelectItem key={"published"} value="published">
+            Published
+          </SelectItem>
         </Select>
 
         <Textarea
@@ -155,3 +173,5 @@ export const Magazines = () => {
     </Wrapper>
   );
 };
+
+export default Magazines;

@@ -4,9 +4,12 @@ import { CategoriesRouter } from "./CategoriesRouter";
 import { MagazinesRouter } from "./MagazinesRouter";
 import { UsersRouter } from "./UsersRouter";
 import { SquadsRouter } from "./SquadsRouter";
+import { BearerAuth } from "@/lib/passport";
 
 const router = Router();
 export { router as ApiRouter };
+
+router.use(BearerAuth);
 
 router.use("/auth", AuthRouter);
 router.use("/magazines", MagazinesRouter);

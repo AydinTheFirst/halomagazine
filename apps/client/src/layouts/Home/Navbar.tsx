@@ -105,7 +105,9 @@ export const NavbarComponent = () => {
 };
 
 const UserRoutes = () => {
-  const { data: user } = useHTTP<IUser>("/users/@me");
+  const { data: user } = useHTTP<IUser>("/users/@me", {
+    onError: () => null,
+  });
 
   const logout = async () => {
     localStorage.removeItem("token");

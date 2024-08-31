@@ -85,3 +85,5 @@ export const Contact = () => {
     </HomeLayout>
   );
 };
+
+export default Contact;

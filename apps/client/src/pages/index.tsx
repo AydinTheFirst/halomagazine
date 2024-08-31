@@ -24,6 +24,8 @@ export const App = () => {
   );
 };
 
+export default App;
+
 const SearchMagazines = () => {
   const { data: categories } = useHTTP<any[]>("/categories");
 
