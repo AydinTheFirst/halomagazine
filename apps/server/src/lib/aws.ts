@@ -1,50 +1,63 @@
+import { uuid } from "@/helpers/utils";
 import { S3 } from "@aws-sdk/client-s3";
-import fs from "node:fs";
 
-const bucketName = "haloidergisi";
+class AwsClient {
+  s3: S3;
+  bucketName = process.env.AWS_BUCKET_NAME!;
+  constructor() {
+    this.s3 = new S3({
+      region: "auto",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+      },
+      endpoint: process.env.AWS_ENDPOINT,
+      maxAttempts: 3,
+    });
+  }
 
-const _createStorageClient = () => {
-  return new S3({
-    region: "auto",
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-    endpoint: process.env.AWS_ENDPOINT,
-  });
-};
+  uploadFile = async (file: Express.Multer.File) => {
+    const key = uuid();
 
-const _uploadFile = async (file: Express.Multer.File) => {
-  const client = _createStorageClient();
+    await this.s3.putObject({
+      Bucket: this.bucketName,
+      Key: key,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    });
 
-  const result = await client.putObject({
-    Bucket: bucketName,
-    Key: convertField(file.fieldname) + "/" + file.filename,
-    Body: fs.readFileSync(file.path),
-    ContentType: file.mimetype,
-  });
+    return key;
+  };
 
-  return result;
-};
+  deleteFile = async (Key: string) => {
+    const result = await this.s3.deleteObject({
+      Bucket: this.bucketName,
+      Key,
+    });
 
-const _deleteFile = async (Key: string) => {
-  const client = _createStorageClient();
+    return result;
+  };
 
-  const result = await client.deleteObject({
-    Bucket: bucketName,
-    Key,
-  });
+  getFiles = async () => {
+    const result = await this.s3.listObjects({
+      Bucket: this.bucketName,
+    });
 
-  return result;
-};
+    return result.Contents;
+  };
 
-export const convertField = (field: string) => {
-  return field === "thumbnail" ? "thumbnails" : "dergiler";
-};
+  getFile = async (Key: string) => {
+    try {
+      const result = await this.s3.getObject({
+        Bucket: this.bucketName,
+        Key,
+      });
 
-export const storage = {
-  createStorageClient: _createStorageClient,
-  uploadFile: _uploadFile,
-  deleteFile: _deleteFile,
-  convertField,
-};
+      return result;
+    } catch (error) {
+      return null;
+    }
+  };
+}
+
+export const AWS = new AwsClient();

@@ -3,7 +3,7 @@ import { APIError, ZodError } from "@/lib/http";
 import { z } from "zod";
 import { Request, Response } from "express";
 import { uuid } from "@/helpers/utils";
-import { convertField, storage } from "@/lib/aws";
+import { AWS } from "@/lib/aws";
 
 const NewMagazineSchema = z.object({
   categoryId: z.string().min(3),
@@ -30,8 +30,10 @@ class MagazinesController {
     const { categoryId, title, description } = parse.data;
 
     const files = req.files as Express.Multer.File[];
+    const thumbnail = files.find((file) => file.fieldname === "thumbnail");
+    const file = files.find((file) => file.fieldname === "file");
 
-    if (files.length < 2) {
+    if (!thumbnail || !file) {
       return APIError(res, "Please upload thumbnail and file");
     }
 
@@ -41,16 +43,9 @@ class MagazinesController {
       title,
       description,
       timestamp: Date.now(),
-      thumbnail: "_",
-      file: "_",
+      thumbnail: await AWS.uploadFile(thumbnail!),
+      file: await AWS.uploadFile(file!),
     });
-
-    for (const file of files) {
-      await storage.uploadFile(file);
-
-      (model as any)[file.fieldname] =
-        convertField(file.fieldname) + "/" + file.filename;
-    }
 
     await model.save();
 
@@ -66,11 +61,17 @@ class MagazinesController {
     Object.assign(model, req.body);
 
     const files = req.files as Express.Multer.File[];
-    for (const file of files) {
-      await storage.uploadFile(file);
+    const thumbnail = files.find((file) => file.fieldname === "thumbnail");
+    const file = files.find((file) => file.fieldname === "file");
 
-      (model as any)[file.fieldname] =
-        convertField(file.fieldname) + "/" + file.filename;
+    if (thumbnail) {
+      await AWS.deleteFile(model.thumbnail);
+      model.thumbnail = await AWS.uploadFile(thumbnail);
+    }
+
+    if (file) {
+      await AWS.deleteFile(model.file);
+      model.file = await AWS.uploadFile(file);
     }
 
     await model.save();

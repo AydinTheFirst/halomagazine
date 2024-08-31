@@ -11,6 +11,7 @@ import {
   SelectItem,
   Textarea,
 } from "@nextui-org/react";
+import { AxiosProgressEvent } from "axios";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -26,31 +27,34 @@ export const Magazines = () => {
 
   const { data: categories } = useHTTP<ICategory[]>("/categories");
 
+  const handleProgressChange = (progressEvent: AxiosProgressEvent) => {
+    const percent = Math.round(
+      (progressEvent.loaded / progressEvent.total!) * 100,
+    );
+    toast.info(`Uploading... ${percent}%`);
+    setUploadProgress(percent);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-
+    setUploadProgress(1);
     try {
       magazine
         ? await http.put(`/magazines/${magazineId}`, data, {
-            onUploadProgress: (progressEvent) => {
-              setUploadProgress(
-                (progressEvent.loaded / progressEvent.total!) * 100,
-              );
-            },
+            onUploadProgress: handleProgressChange,
           })
         : await http.post("/magazines", data, {
-            onUploadProgress: (progressEvent) => {
-              setUploadProgress(
-                (progressEvent.loaded / progressEvent.total!) * 100,
-              );
-            },
+            onUploadProgress: handleProgressChange,
           });
       toast.success(magazine ? "Magazine updated" : "Magazine created");
+      setUploadProgress(0);
     } catch (error) {
       httpError(error);
     }
   };
+
+  //5042f298-ad3c-4a9e-91bd-ab727197e2de
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -111,13 +115,14 @@ export const Magazines = () => {
         />
 
         <div className="flex items-center gap-3">
-          <Input
-            label="Cover"
+          <label className="cursor-pointer text-blue-500">
+            {magazine ? "Update" : "Upload"} Thumbnail
+          </label>
+          <input
             type="file"
             name="thumbnail"
             accept="image/*"
             onChange={handleImageChange}
-            variant="underlined"
           />
 
           {magazine && (
@@ -130,13 +135,10 @@ export const Magazines = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Input
-            label="PDF"
-            type="file"
-            name="file"
-            accept="application/pdf"
-            variant="underlined"
-          />
+          <label className="cursor-pointer text-blue-500">
+            {magazine ? "Update" : "Upload"} PDF
+          </label>
+          <input type="file" name="file" accept="application/pdf" />
           {magazine && (
             <Link to={CDN + magazine.file} target="_blank" rel="noreferrer">
               <Button color="success">View PDF</Button>
