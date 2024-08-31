@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 export const CategoryTable = () => {
   const navigate = useNavigate();
   const { data: categories } = useHTTP<ICategory[]>("/categories");
+  const { data: magazines } = useHTTP<any[]>("/magazines");
 
   if (!categories) return <div>Loading...</div>;
 
@@ -34,12 +35,15 @@ export const CategoryTable = () => {
   ];
 
   const rows = categories.map((category) => {
+    const magazineCount = magazines?.filter(
+      (magazine) => magazine.categoryId === category.id,
+    ).length;
     return {
       key: category.id,
       id: category.id,
       title: category.title,
       description: category.description,
-      magazines: category.magazines.length,
+      magazines: magazineCount || 0,
     };
   });
 

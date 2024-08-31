@@ -13,21 +13,7 @@ const NewCategorySchema = z.object({
 
 class CategoriesController {
   async getAll(req: Request, res: Response) {
-    const user: IUser = req.user as IUser;
-
     const models = await CategoryModel.find().lean();
-
-    for (const model of models) {
-      const magazines =
-        user && user.isAdmin
-          ? await MagazieModel.find({ categoryId: model.id })
-          : await MagazieModel.find({
-              categoryId: model.id,
-              status: "published",
-            });
-
-      model.magazines = magazines;
-    }
 
     res.send(models);
   }
@@ -36,6 +22,20 @@ class CategoriesController {
     const id = req.params.id;
     const model = await CategoryModel.findOne({ id });
     res.send(model);
+  }
+
+  async getMagazines(req: Request, res: Response) {
+    const user: IUser = req.user as IUser;
+
+    const data =
+      user && user.isAdmin
+        ? await MagazieModel.find({ categoryId: req.params.id })
+        : await MagazieModel.find({
+            categoryId: req.params.id,
+            status: "published",
+          });
+
+    res.send(data);
   }
 
   async create(req: Request, res: Response) {

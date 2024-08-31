@@ -9,6 +9,8 @@ router.get("/", CategoriesController.getAll);
 
 router.get("/:id", CategoriesController.getOneById);
 
+router.get("/:id/magazines", CategoriesController.getMagazines);
+
 router.post("/", isLoggedIn, isAdmin, CategoriesController.create);
 
 router.put("/:id", isLoggedIn, isAdmin, CategoriesController.updateOne);
